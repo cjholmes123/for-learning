@@ -1,0 +1,14 @@
+# clangd 配置:本仓库没有 compile_commands.json,用这里提供默认编译参数。
+# 参数与 .vscode/tasks.json 中的 gcc 参数保持一致,让编辑器诊断和实际编译结果相同。
+CompileFlags:
+  # 用 MinGW 的 gcc 作为驱动,clangd 才能查到它的系统头文件目录
+  # (需要配合 --query-driver,见 .vscode/settings.json)
+  Compiler: D:/msys64/mingw64/bin/gcc.exe
+  Add:
+    - -std=c11
+    - -Wall
+    - -Wextra
+
+# 忽略未使用 #include 的提示,减少刷题时的噪音。
+Diagnostics:
+  UnusedIncludes: None
