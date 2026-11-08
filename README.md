@@ -12,6 +12,13 @@ LeetCode 刷题记录,用 C 语言实现。
 | 4 | [Median of Two Sorted Arrays](https://leetcode.cn/problems/median-of-two-sorted-arrays/) | `4.c` | 二分找第 k 小(`findMedianSortedArrays1` 为归并对照版) | O(log(m+n)) | 2026-10-24 |
 | 5 | [Longest Palindromic Substring](https://leetcode.cn/problems/longest-palindromic-substring/) | `5.c` | 中心扩展(奇数/偶数两种回文) | O(n²) | 2026-10-25 |
 | 6 | [Zigzag Conversion](https://leetcode.cn/problems/zigzag-conversion/) | `6.c` | 按行号收集(方向变量控制上下折返) | O(n·numRows) | 2026-10-25 |
+| 7 | [Reverse Integer](https://leetcode.cn/problems/reverse-integer/) | `7.c` | 逐位弹出,乘加前用 `INT_MAX/10` 预判溢出 | O(log x) | 2026-10-26 |
+| 8 | [String to Integer (atoi)](https://leetcode.cn/problems/string-to-integer-atoi/) | `8.c` | 跳过空格 → 取符号 → 逐位累加,累加前判溢出,越界截断 | O(n) | 2026-10-29 |
+| 9 | [Palindrome Number](https://leetcode.cn/problems/palindrome-number/) | `9.c` | 取各位到数组,首尾指针比较(不翻转整数,不会溢出) | O(log x) | 2026-11-01 |
+| 10 | [Regular Expression Matching](https://leetcode.cn/problems/regular-expression-matching/) | `10.c` | 记忆化 DFS(自顶向下;`*` 分「匹配 0 次」与「吃掉一个字符」两支) | O(mn) | 2026-11-01 |
+| 11 | [Container With Most Water](https://leetcode.cn/problems/container-with-most-water/) | `11.c` | 双指针,每步移动较矮的一侧 | O(n) | 2026-11-02 |
+| 12 | [Integer to Roman](https://leetcode.cn/problems/integer-to-roman/) | `12.c` | 13 组「值-符号」对(含 900/400/90/40/9/4)逐档贪心拼接 | O(1) | 2026-11-04 |
+| 13 | [Roman to Integer](https://leetcode.cn/problems/roman-to-integer/) | `13.c` | 按降序表的下标比较,小值在大值前则减 | O(n) | 2026-11-08 |
 
 ## 编译运行
 
@@ -34,6 +41,15 @@ gcc -Wall -Wextra -std=c11 1.c -o 1
 gcc -std=c11 -Wall -Wextra 4_test.c -o 4_test -lm
 ./4_test
 ```
+
+第 8 题附有行为检查脚本 `8_check.c`(覆盖前后空格、正负号、非法起始字符、`INT_MAX`/`INT_MIN` 截断等边界),与 `8.c` 一起编译:
+
+```bash
+gcc -std=c11 -Wall -Wextra 8_check.c 8.c -o 8_check
+./8_check
+```
+
+第 11 题用到了 `fmin`/`fmax`,单独编译时需链接数学库(`-lm`)。
 
 ## 说明
 
