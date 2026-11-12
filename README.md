@@ -19,6 +19,10 @@ LeetCode 刷题记录,用 C 语言实现。
 | 11 | [Container With Most Water](https://leetcode.cn/problems/container-with-most-water/) | `11.c` | 双指针,每步移动较矮的一侧 | O(n) | 2026-11-02 |
 | 12 | [Integer to Roman](https://leetcode.cn/problems/integer-to-roman/) | `12.c` | 13 组「值-符号」对(含 900/400/90/40/9/4)逐档贪心拼接 | O(1) | 2026-11-04 |
 | 13 | [Roman to Integer](https://leetcode.cn/problems/roman-to-integer/) | `13.c` | 按降序表的下标比较,小值在大值前则减 | O(n) | 2026-11-08 |
+| 14 | [Longest Common Prefix](https://leetcode.cn/problems/longest-common-prefix/) | `14.c` | 纵向扫描:以最短串为界,逐列比较所有字符串 | O(S),S 为所有字符串长度之和 | 2026-11-08 |
+| 15 | [3Sum](https://leetcode.cn/problems/3sum/) | `15.c` | 排序 + 双指针:固定首数后左右夹逼,三处跳过重复值(`15_fixed.c` 为动态扩容的参考实现) | O(n²) | 2026-11-11 |
+| 16 | [3Sum Closest](https://leetcode.cn/problems/3sum-closest/) | `16.c` | 排序 + 双指针:维护与 `target` 的最小差值(`16_faster.c` 另加区间端点剪枝) | O(n²) | 2026-11-12 |
+| 17 | [Letter Combinations of a Phone Number](https://leetcode.cn/problems/letter-combinations-of-a-phone-number/) | `17.c` | 回溯(DFS):逐位选字母,叶子处复制路径入结果;空串返回空列表 | O(n·4ⁿ) | 2026-11-12 |
 
 ## 编译运行
 
@@ -50,6 +54,31 @@ gcc -std=c11 -Wall -Wextra 8_check.c 8.c -o 8_check
 ```
 
 第 11 题用到了 `fmin`/`fmax`,单独编译时需链接数学库(`-lm`)。
+
+第 15 题另附三个文件:`15_fixed.c` 是参考实现(动态扩容 + 三处去重 + 内存不足时的兜底),`15_check.c` 拿暴力解当标尺做随机对拍,`15_faster.c` 对比「标准双指针 / 加剪枝 / 只枚举不同值」几种写法的耗时:
+
+```bash
+gcc -Wall -Wextra -O2 15_fixed.c 15_check.c -o 15_check.exe
+./15_check
+gcc -Wall -Wextra -O2 15_faster.c -o 15_faster
+./15_faster
+```
+
+第 16 题附有 `16_fixed.c`(修正 `16.c` 里 `res` 被逐轮覆盖的问题)、`16_test.c`(与暴力三重循环对拍)、`16_faster.c`(剪枝加速版)和 `16_bench.c`(基准测试;用到 `<windows.h>` 的 QPC 计时,Windows 专用):
+
+```bash
+gcc -std=c11 -Wall -Wextra 16_test.c 16.c -o 16_test
+./16_test
+gcc -O2 -std=c11 -Wall -Wextra 16_bench.c 16_fixed.c 16_faster.c -o 16_bench
+./16_bench
+```
+
+第 17 题附有自检脚本 `17_check.c`(覆盖 1~4 位输入、空串和 `4ⁿ` 上界,并逐条检查字符串结尾的 `'\0'`、字母是否来自对应按键、答案是否重复):
+
+```bash
+gcc -std=c11 -Wall -Wextra 17_check.c 17.c -o 17_check
+./17_check
+```
 
 ## 说明
 
